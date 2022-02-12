@@ -1,3 +1,4 @@
+from inspect import BlockFinder
 from aws_cdk import (
     # Duration,
     core ,
@@ -24,7 +25,29 @@ class CdkProjectStack(core.Stack):
             self,
             "muBucketID",
             bucket_name= "bucket-cdk-2004",
-            versioned= True,
-            encryption=_s3.BucketEncryption.KMS_MANAGED
-            
+            versioned= False,
+            encryption=_s3.BucketEncryption.S3_MANAGED,
+            block_public_access=_s3.BlockPublicAccess.BLOCK_ALL  
         )
+
+        mybucket = _s3.Bucket(
+            self,
+            "mybucketid1"
+        )
+
+        snstopicname = "abcdef"
+
+        if len(snstopicname) > 10 :
+            raise ValueError("Maximum value can be only 10 chars")
+
+        print(mybucket.bucket_name)
+        
+
+        output_1 = core.CfnOutput(
+            self,
+            "mybucketoutput1",
+            value=mybucket.bucket_name,
+            description="my first cdk bucket",
+            export_name="mybucketoutput1"
+        )
+        

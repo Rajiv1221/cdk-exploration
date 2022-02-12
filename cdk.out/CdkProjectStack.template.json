@@ -7,14 +7,17 @@
           "ServerSideEncryptionConfiguration": [
             {
               "ServerSideEncryptionByDefault": {
-                "SSEAlgorithm": "aws:kms"
+                "SSEAlgorithm": "AES256"
               }
             }
           ]
         },
         "BucketName": "bucket-cdk-2004",
-        "VersioningConfiguration": {
-          "Status": "Enabled"
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
         }
       },
       "UpdateReplacePolicy": "Retain",
@@ -23,15 +26,34 @@
         "aws:cdk:path": "CdkProjectStack/muBucketID/Resource"
       }
     },
+    "mybucketid1EDB20D9B": {
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "CdkProjectStack/mybucketid1/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWLQQrCQAxFz9L9NLW0m+7EXkDqCUoaMQ4mMMkgMszdtXb1Hrz/e+jHEU7NeX1bi1vsCmoiKDdfMYZZxTxl9DDfZSHTnJB2/4WNnVVq2I82QLlkjPQfHlZruH78odINMMHUPI25TVmcXwTLwS87iq41fgAAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWMQQ7CMAwE39J76lK1l94QfQCovKBygzARMYptIRTl7xB62tHOanvoxxEOzXF9S4tb6DJy8pCvumJw8y2eTV+mbuYomgy1dosXtoS+8k9spMSxuHohA+STYfD/4U6luMtH7xy7ASaYmocQtcmi0tPDsucXZjkhXIgAAAA="
       },
       "Metadata": {
         "aws:cdk:path": "CdkProjectStack/CDKMetadata/Default"
       },
       "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Outputs": {
+    "mybucketoutput1": {
+      "Description": "my first cdk bucket",
+      "Value": {
+        "Ref": "mybucketid1EDB20D9B"
+      },
+      "Export": {
+        "Name": "mybucketoutput1"
+      }
     }
   },
   "Conditions": {
